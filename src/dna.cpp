@@ -75,10 +75,48 @@ void dna :: init(rule r0, int Len)
 		for(auto& m2:m1)
 			m2 = rand()%r0.dna_k;
 	}
+	resource.resize(r0.res_k);
+}
+
+void dna :: mutate(rule r0, int num)
+{
+	for(size_t t1=0; t1<num; t1++)
+	{
+		int m_ith = rand()%len;
+		int m_index = rand()%r0.dna_l;
+		seq[m_ith][m_index] = rand()%r0.dna_k;
+	}
 }
 
 void dna :: translate(rule r0, code& c0)
 {
+	int index;
+	for(auto& m1:resource)
+		m1=0;
+	life = 0;
+	size = 0;
+	spawn = 0;
+	for(size_t t1=0; t1<len; t1++)
+	{
+		index = r0.index(seq[t1]);
+		for(size_t t2=0; t2<r0.res_k; t2++)
+			resource[t2] += c0.resource[index][t2];
+		life += c0.life[index];
+		size += c0.size[index];
+		spawn += c0.spawn[index];
+	}
+}
+
+void dna :: m_res(vector<double>& Res)
+{
+	Res = resource;
+}
+
+void dna :: m_param(double& Life, double& Size, double& Spawn)
+{
+	Life = life;
+	Size = size;
+	Spawn = spawn;
 }
 
 void dna :: print_seq()
@@ -89,4 +127,11 @@ void dna :: print_seq()
 			cout<<m2<<'\t';
 		cout<<endl;
 	}
+}
+
+void dna :: print_param()
+{
+	for(auto& m2:resource)
+		cout<<'\t'<<m2;
+	cout<<endl<<'\t'<<life<<'\t'<<size<<'\t'<<spawn<<endl;
 }
