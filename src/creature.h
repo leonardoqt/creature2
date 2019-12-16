@@ -22,7 +22,8 @@ public:
 	double age;
 	double size;
 	double status;
-	void init(rule r0, code& c0, int len_in, int len_out, int len_param);	// get all initial state
+	void init(rule r0, code& c0);	// get all initial state
+	int if_defect(rule r0);
 
 	void print();
 };

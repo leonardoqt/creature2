@@ -4,11 +4,11 @@
 
 using namespace std;
 
-void creature :: init(rule r0, code& c0, int len_in, int len_out, int len_param)
+void creature :: init(rule r0, code& c0)
 {
-	dna_in.init(r0,len_in);
-	dna_out.init(r0,len_out);
-	dna_param.init(r0,len_param);
+	dna_in.init(r0,r0.len_in);
+	dna_out.init(r0,r0.len_out);
+	dna_param.init(r0,r0.len_param);
 	
 	dna_in.translate(r0,c0);
 	dna_out.translate(r0,c0);
@@ -18,9 +18,22 @@ void creature :: init(rule r0, code& c0, int len_in, int len_out, int len_param)
 	dna_out.m_res(re_out);
 	dna_param.m_param(life,max_size,spawn_rate);
 
-	age = 0;
-	size = 0;
-	status = 1.0;
+	if(!if_defect(r0))
+	{
+		r0.renorm(re_in);
+		r0.renorm(re_out);
+		age = 1.0;
+		size = age/life*max_size;
+		status = 1.0;
+	}
+}
+
+int creature :: if_defect(rule r0)
+{
+	if(life<=0 || max_size <=0 || spawn_rate <=0 || r0.norm(re_in)<=1e-10 || r0.norm(re_out)<=1e-10)
+		return 1;
+	else
+		return 0;
 }
 
 void creature :: print()
