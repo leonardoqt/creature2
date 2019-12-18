@@ -11,6 +11,8 @@ void land :: init(rule r0, code& c0)
 	bio.back().init(r0,c0);
 	if(bio.back().if_defect(r0))
 		bio.pop_back();
+	else
+		bio.push_back(bio.back().spawn(r0,c0));
 }
 
 void land :: print()

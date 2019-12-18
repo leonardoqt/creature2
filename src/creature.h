@@ -19,10 +19,13 @@ public:
 	double life;
 	double max_size;
 	double spawn_rate;
+	double mutation;
 	double age;
 	double size;
 	double status;
+
 	void init(rule r0, code& c0);	// get all initial state
+	creature spawn(rule r0, code& c0);
 	int if_defect(rule r0);
 
 	void print();

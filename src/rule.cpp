@@ -7,13 +7,17 @@ using namespace std;
 rule :: rule()
 {
 	double tmp_res = 100;
-	int tmp_len = 10;
+	int tmp_len = 100;
 	dna_k = 20;
 	dna_l = 3;
 	res_k = 5;
-	len_in = 10;
-	len_out = 10;
-	len_param = 10;
+	len_in = 100;
+	len_out = 100;
+	len_param = 400;
+	rand_max_life = 1;
+	rand_max_size = 1;
+	rand_max_spawn = 0.05;
+	rand_max_mutation = 0.005;
 	for(size_t t1=0; t1<res_k; t1++)
 		ini_res.push_back(tmp_res);
 	dim = 2;

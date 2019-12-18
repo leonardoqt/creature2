@@ -15,12 +15,13 @@ void code :: init(rule r0)
 	life.resize(entry_num);
 	size.resize(entry_num);
 	spawn.resize(entry_num);
+	mutation.resize(entry_num);
 	for(auto& m1:resource)
 		m1.resize(r0.res_k);
 	// generate table
 	for(size_t t1=0; t1<entry_num; t1++)
 	{
-		switch(rand()%4)
+		switch(rand()%5)
 		{
 		// resource gene
 		case 0:
@@ -32,19 +33,25 @@ void code :: init(rule r0)
 		// life gene
 		case 1:
 		{
-			life[t1] = (rand()/(double)RAND_MAX)*10-5;
+			life[t1] = ((rand()/(double)RAND_MAX)*2-1)*r0.rand_max_life;
 			break;
 		}
 		// size gene
 		case 2:
 		{
-			size[t1] = (rand()/(double)RAND_MAX)*2-1;
+			size[t1] = ((rand()/(double)RAND_MAX)*2-1)*r0.rand_max_size;
 			break;
 		}
 		// spawn gene
 		case 3:
 		{
-			spawn[t1] = (rand()/(double)RAND_MAX)*0.4-0.2;
+			spawn[t1] = ((rand()/(double)RAND_MAX)*2-1)*r0.rand_max_spawn;
+			break;
+		}
+		// mutation gene
+		case 4:
+		{
+			mutation[t1] = ((rand()/(double)RAND_MAX)*2-1)*r0.rand_max_mutation;
 			break;
 		}
 		}
@@ -58,7 +65,7 @@ void code :: print()
 		cout<<t1<<':'<<endl;
 		for(auto& m2:resource[t1])
 			cout<<'\t'<<m2;
-		cout<<endl<<'\t'<<life[t1]<<'\t'<<size[t1]<<'\t'<<spawn[t1]<<endl;
+		cout<<endl<<'\t'<<life[t1]<<'\t'<<size[t1]<<'\t'<<spawn[t1]<<'\t'<<mutation[t1]<<endl;
 	}
 }
 
@@ -96,6 +103,7 @@ void dna :: translate(rule r0, code& c0)
 	life = 0;
 	size = 0;
 	spawn = 0;
+	mutation = 0;
 	for(size_t t1=0; t1<len; t1++)
 	{
 		index = r0.index(seq[t1]);
@@ -104,6 +112,7 @@ void dna :: translate(rule r0, code& c0)
 		life += c0.life[index];
 		size += c0.size[index];
 		spawn += c0.spawn[index];
+		mutation += c0.mutation[index];
 	}
 }
 
@@ -112,11 +121,12 @@ void dna :: m_res(vector<double>& Res)
 	Res = resource;
 }
 
-void dna :: m_param(double& Life, double& Size, double& Spawn)
+void dna :: m_param(double& Life, double& Size, double& Spawn, double& Mutation)
 {
 	Life = life;
 	Size = size;
 	Spawn = spawn;
+	Mutation = mutation;
 }
 
 void dna :: print_seq()
@@ -133,5 +143,5 @@ void dna :: print_param()
 {
 	for(auto& m2:resource)
 		cout<<'\t'<<m2;
-	cout<<endl<<'\t'<<life<<'\t'<<size<<'\t'<<spawn<<endl;
+	cout<<endl<<'\t'<<life<<'\t'<<size<<'\t'<<spawn<<'\t'<<mutation<<endl;
 }
