@@ -15,8 +15,9 @@ public:
 	std::vector<int> len_land;		// size of the world
 	rule();
 	int index(std::vector<int> i1);
-	double norm(std::vector<double> B);
-	std::vector<double>& renorm(std::vector<double>& B);
 };
 
+double norm(std::vector<double> B);
+double dot(std::vector<double> A, std::vector<double> B);
+std::vector<double>& renorm(std::vector<double>& B);
 #endif

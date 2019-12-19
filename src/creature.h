@@ -4,6 +4,7 @@
 #include "rule.h"
 #include "dna.h"
 #include <vector>
+#include <fstream>
 
 class creature;
 
@@ -29,5 +30,6 @@ public:
 	int if_defect(rule r0);
 
 	void print();
+	void print(std::ofstream& out);
 };
 #endif

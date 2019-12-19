@@ -21,8 +21,8 @@ void creature :: init(rule r0, code& c0)
 
 	if(!if_defect(r0))
 	{
-		r0.renorm(re_in);
-		r0.renorm(re_out);
+		renorm(re_in);
+		renorm(re_out);
 		age = 1.0;
 		size = age/life*max_size;
 		status = 1.0;
@@ -71,8 +71,8 @@ creature creature :: spawn(rule r0, code& c0)
 
 	if(!baby.if_defect(r0))
 	{
-		r0.renorm(baby.re_in);
-		r0.renorm(baby.re_out);
+		renorm(baby.re_in);
+		renorm(baby.re_out);
 		baby.age = 1.0;
 		baby.size = baby.age/baby.life*baby.max_size;
 		baby.status = 1.0;
@@ -84,7 +84,7 @@ creature creature :: spawn(rule r0, code& c0)
 
 int creature :: if_defect(rule r0)
 {
-	if(life<=0 || max_size <=0 || spawn_rate <=0 || r0.norm(re_in)<=1e-10 || r0.norm(re_out)<=1e-10)
+	if(life<=0 || max_size <=0 || spawn_rate <=0 || norm(re_in)<=1e-10 || norm(re_out)<=1e-10)
 		return 1;
 	else
 		return 0;
@@ -107,4 +107,23 @@ void creature :: print()
 	cout<<"Maximum size: "<<max_size<<'\t'<<"Current size: "<<size<<endl;
 	cout<<"Spawn rate: "<<spawn_rate<<'\t'<<"Mutation rate: "<<mutation<<endl;
 	cout<<"Overall status: "<<status<<endl;
+}
+
+void creature :: print(ofstream& out)
+{
+	//
+	out<<"Need type:"<<endl;
+	for(auto& m1:re_in)
+		out<<m1<<'\t';
+	out<<endl;
+	//
+	out<<"Produce type:"<<endl;
+	for(auto& m1:re_out)
+		out<<m1<<'\t';
+	out<<endl;
+	//
+	out<<"Life: "<<life<<'\t'<<"Age: "<<age<<endl;
+	out<<"Maximum size: "<<max_size<<'\t'<<"Current size: "<<size<<endl;
+	out<<"Spawn rate: "<<spawn_rate<<'\t'<<"Mutation rate: "<<mutation<<endl;
+	out<<"Overall status: "<<status<<endl;
 }

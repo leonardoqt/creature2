@@ -6,8 +6,8 @@ using namespace std;
 
 rule :: rule()
 {
-	double tmp_res = 100;
-	int tmp_len = 100;
+	double tmp_res = 0.1;
+	int tmp_len = 20;
 	dna_k = 20;
 	dna_l = 3;
 	res_k = 5;
@@ -33,7 +33,7 @@ int rule :: index(vector<int> i1)
 	return i2;
 }
 
-double rule :: norm(vector<double> B)
+double norm(vector<double> B)
 {
 	double res=0;
 	for(auto& m1:B)
@@ -41,7 +41,16 @@ double rule :: norm(vector<double> B)
 	return sqrt(res);
 }
 
-vector<double>& rule :: renorm(vector<double>& B)
+double dot(vector<double> A, vector<double>B)
+{
+	double res=0;
+	int dim = min(A.size(), B.size());
+	for(size_t t1=0; t1<dim; t1++)
+		res += A[t1]*B[t1];
+	return res;
+}
+
+vector<double>& renorm(vector<double>& B)
 {
 	double tmp_norm = norm(B);
 	for(auto& m1:B)
