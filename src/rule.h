@@ -10,6 +10,7 @@ public:
 	int res_k;	// kind of resource
 	int len_in, len_out, len_param;	// length of gene
 	double rand_max_life, rand_max_size, rand_max_spawn, rand_max_mutation;
+	double max_capacity;			// capacity of each terr
 	std::vector<double> ini_res;	// initial value of each resource
 	int dim;						// dimension of the world
 	std::vector<int> len_land;		// size of the world

@@ -103,9 +103,8 @@ void creature :: print()
 		cout<<m1<<'\t';
 	cout<<endl;
 	//
-	cout<<"Life: "<<life<<'\t'<<"Age: "<<age<<endl;
-	cout<<"Maximum size: "<<max_size<<'\t'<<"Current size: "<<size<<endl;
-	cout<<"Spawn rate: "<<spawn_rate<<'\t'<<"Mutation rate: "<<mutation<<endl;
+	cout<<"Life: "<<life<<'\t'<<"Maximum size: "<<max_size<<'\t'<<"Spawn rate: "<<spawn_rate<<endl;
+	cout<<"Age: "<<age<<'\t'<<"Current size: "<<size<<'\t'<<"Mutation rate: "<<mutation<<endl;
 	cout<<"Overall status: "<<status<<endl;
 }
 
@@ -122,8 +121,7 @@ void creature :: print(ofstream& out)
 		out<<m1<<'\t';
 	out<<endl;
 	//
-	out<<"Life: "<<life<<'\t'<<"Age: "<<age<<endl;
-	out<<"Maximum size: "<<max_size<<'\t'<<"Current size: "<<size<<endl;
-	out<<"Spawn rate: "<<spawn_rate<<'\t'<<"Mutation rate: "<<mutation<<endl;
+	out<<"Life: "<<life<<'\t'<<"Maximum size: "<<max_size<<'\t'<<"Spawn rate: "<<spawn_rate<<endl;
+	out<<"Age: "<<age<<'\t'<<"Current size: "<<size<<'\t'<<"Mutation rate: "<<mutation<<endl;
 	out<<"Overall status: "<<status<<endl;
 }

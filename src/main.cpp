@@ -13,7 +13,7 @@ int main ()
 {
 	chrono::high_resolution_clock::time_point now = chrono::high_resolution_clock::now();
 	srand(now.time_since_epoch().count());
-	srand(0);
+//	srand(0);
 
 	ofstream out_i,out_f;
 	rule r0;
@@ -27,7 +27,7 @@ int main ()
 	sys1.init(r0,c0);
 	sys1.print(out_i);
 
-	int n_tot = 5;
+	int n_tot = 50;
 	cout<<'['<<0<<'/'<<n_tot<<']'<<endl;
 	for(size_t t1=0; t1<n_tot; t1++)
 	{

@@ -6,7 +6,7 @@ using namespace std;
 
 rule :: rule()
 {
-	double tmp_res = 0.1;
+	double tmp_res = 1;
 	int tmp_len = 20;
 	dna_k = 20;
 	dna_l = 3;
@@ -14,10 +14,11 @@ rule :: rule()
 	len_in = 100;
 	len_out = 100;
 	len_param = 400;
-	rand_max_life = 1;
+	rand_max_life = 2;
 	rand_max_size = 1;
 	rand_max_spawn = 0.05;
 	rand_max_mutation = 0.005;
+	max_capacity = 10;
 	for(size_t t1=0; t1<res_k; t1++)
 		ini_res.push_back(tmp_res);
 	dim = 2;

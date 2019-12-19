@@ -59,11 +59,14 @@ void land :: print(ofstream& out)
 	for(auto& m1:res)
 		out<<'\t'<<m1<<endl;
 	out<<"------------------------------------"<<endl;
-	out<<"Creatures:"<<endl;
+	out<<"Active Creatures:"<<endl;
 	for(auto& m1:bio)
 	{
-		m1.print(out);
-		out<<"------------------"<<endl;
+		if(m1.status > 1e-10)
+		{
+			m1.print(out);
+			out<<"------------------"<<endl;
+		}
 	}
 }
 //====================================================
@@ -81,15 +84,35 @@ void ecology :: init(rule r0, code& c0)
 
 void ecology :: evolve(rule r0, code& c0)
 {
+	double inv_sz;
 	int tmp;
-	// death affair
+	// death affair 1
 	for(auto& m1:terr)
-	for(size_t t2=0; t2<m1.bio.size(); t2++)
+	for(int t2=0; t2<m1.bio.size(); t2++)
 	{
 		if(rand()/(double)RAND_MAX > m1.bio[t2].status || m1.bio[t2].age > m1.bio[t2].life)
 		{
 			m1.bio[t2] = m1.bio.back();
 			m1.bio.pop_back();
+			t2--;
+		}
+	}
+	// death affair 2
+	for(auto& m1:terr)
+	if(m1.bio.size() > r0.max_capacity)
+	{
+		inv_sz = 0;
+		for(auto& m2:m1.bio)
+			inv_sz+=1/m2.size;
+		inv_sz = (m1.bio.size()-r0.max_capacity)/inv_sz;
+		for(int t2=0; t2<m1.bio.size(); t2++)
+		{
+			if(rand()/(double)RAND_MAX < inv_sz/m1.bio[t2].size)
+			{
+				m1.bio[t2] = m1.bio.back();
+				m1.bio.pop_back();
+				t2--;
+			}
 		}
 	}
 	// eat and produce
@@ -109,16 +132,16 @@ void ecology :: evolve(rule r0, code& c0)
 	if(m2.age!=1.0)
 	{
 		tmp = 1;
-		if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate)
+		if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
 			terr[(t1+tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
-		if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate)
+		if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
 			terr[(t1-tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
 		for(size_t t3=len_land.size()-1; t3>0; t3--)
 		{
 			tmp*=len_land[t3];
-			if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate)
+			if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
 				terr[(t1+tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
-			if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate)
+			if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
 				terr[(t1-tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
 		}
 	}
