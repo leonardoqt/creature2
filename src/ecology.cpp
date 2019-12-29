@@ -85,6 +85,7 @@ void ecology :: init(rule r0, code& c0)
 void ecology :: evolve(rule r0, code& c0)
 {
 	double inv_sz;
+	double rand_tmp;
 	int tmp;
 	// death affair 1
 	for(auto& m1:terr)
@@ -132,17 +133,33 @@ void ecology :: evolve(rule r0, code& c0)
 	if(m2.age!=1.0)
 	{
 		tmp = 1;
-		if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
+		rand_tmp = rand()/(double)RAND_MAX;
+		if(rand_tmp < m2.status*m2.spawn_rate*m2.age/m2.life)
+		{
+			m2.status-=rand_tmp;
 			terr[(t1+tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
-		if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
+		}
+		rand_tmp = rand()/(double)RAND_MAX;
+		if(rand_tmp < m2.status*m2.spawn_rate*m2.age/m2.life)
+		{
+			 m2.status-=rand_tmp;
 			terr[(t1-tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
+		}
 		for(size_t t3=len_land.size()-1; t3>0; t3--)
 		{
 			tmp*=len_land[t3];
-			if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
+			rand_tmp = rand()/(double)RAND_MAX;
+			if(rand_tmp < m2.status*m2.spawn_rate*m2.age/m2.life)
+			{
+				m2.status-=rand_tmp;
 				terr[(t1+tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
-			if(rand()/(double)RAND_MAX < m2.status*m2.spawn_rate*m2.age/m2.life)
+			}
+			rand_tmp = rand()/(double)RAND_MAX;
+			if(rand_tmp < m2.status*m2.spawn_rate*m2.age/m2.life)
+			{
+				m2.status-=rand_tmp;
 				terr[(t1-tmp)%num_land].bio.push_back(m2.spawn(r0,c0));
+			}
 		}
 	}
 }

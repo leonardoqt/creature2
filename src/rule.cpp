@@ -10,7 +10,7 @@ rule :: rule()
 	int tmp_len = 20;
 	dna_k = 20;
 	dna_l = 3;
-	res_k = 5;
+	res_k = 2;
 	len_in = 100;
 	len_out = 100;
 	len_param = 400;
