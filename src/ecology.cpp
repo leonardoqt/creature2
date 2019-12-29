@@ -17,23 +17,20 @@ void land :: init(rule r0, code& c0)
 
 void land :: feed()
 {
-	double tmp;
+	double tmp,tmp2;
 	for(auto& m1:bio)
 	{
 		// find available food
-		tmp = dot(res,m1.re_out);
-		if(tmp > 0)
-			tmp = dot(res,m1.re_in) - tmp*dot(m1.re_in,m1.re_out);
-		else
-			tmp = dot(res,m1.re_in);
+		tmp = dot(res,m1.re_in);
 		// adjust with size
 		if(tmp > m1.size)
 			tmp = m1.size;
 		else if(tmp < 0)
 			tmp = 0;
+		tmp2 = tmp*(1+dot(m1.re_in,m1.re_out));
 		// food are consumed and products are produced
 		for(size_t t2=0; t2<res.size(); t2++)
-			res[t2] -= tmp*(m1.re_in[t2]-m1.re_out[t2]);
+			res[t2] += tmp*m1.re_out[t2]-tmp2*m1.re_in[t2];
 		// how healty the creature is
 		m1.status = tmp/m1.size;
 	}

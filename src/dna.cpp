@@ -27,7 +27,7 @@ void code :: init(rule r0)
 		case 0:
 		{
 			for(auto& m2:resource[t1])
-				m2 = (rand()/(double)RAND_MAX)*2-1;
+				m2 = (rand()/(double)RAND_MAX)*2;
 			break;
 		}
 		// life gene
